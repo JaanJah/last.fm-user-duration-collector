@@ -4,7 +4,7 @@
 # Copy and configure env variables
 cp .env.example .env
 # Run project
-deno run --allow-read --allow-net main.ts
+./start.sh
 # Format files
-deno fmt && deno lint
+./lint.sh
 ```
