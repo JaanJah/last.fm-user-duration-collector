@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "start": "./start.sh",
+    "lint": "./lint.sh"
+  },
+  "githooks": {
+    "pre-commit": "lint"
+  }
+}

@@ -10,9 +10,9 @@ deno run -A --unstable https://deno.land/x/nessie/cli.ts migrate
 # Rollback database migrations
 deno run -A --unstable https://deno.land/x/nessie/cli.ts rollback
 # Run project
-./start.sh
+deno task start
 # Format files
-./lint.sh
+deno task lint
 # Create database migration
 deno run -A --unstable https://deno.land/x/nessie/cli.ts make:migration <name>
 ```
