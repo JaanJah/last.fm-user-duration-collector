@@ -9,6 +9,8 @@ docker-compose up -d
 deno run -A --unstable https://deno.land/x/nessie/cli.ts migrate
 # Rollback database migrations
 deno run -A --unstable https://deno.land/x/nessie/cli.ts rollback
+# Setup githooks
+deno run -A -r https://deno.land/x/githooks/githooks.ts
 # Run project
 deno task start
 # Format files
