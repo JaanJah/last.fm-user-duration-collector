@@ -1,8 +1,12 @@
 import queryBuilder from "../database/queryBuilder.ts";
 import executeQuery from "../database/executeQuery.ts";
 import getLastFMUser from "./getLastFMUser.ts";
+import InputLoop from "https://deno.land/x/input@2.0.3/index.ts";
 
-export default async (name: string) => {
+export default async () => {
+  const inputLoop = new InputLoop();
+  const name = await inputLoop.question("Enter last.fm username:");
+
   // deno-lint-ignore no-explicit-any
   const user: any = await getLastFMUser(name);
 

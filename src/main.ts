@@ -6,13 +6,18 @@ if (!LASTFM_API_KEY) {
   throw new Error("LASTFM_API_KEY variable missing");
 }
 
-console.log("Welcome to Last.fm user duration collector!\n");
+console.log("Welcome to Last.fm user duration collector!");
 
-// Add user to database
 const input = new InputLoop();
-const name = await input.question("Enter last.fm username:");
 
-await addUser(name);
+const questions = [
+  "Add user to database",
+  "Exit",
+];
 
-// Close app
-Deno.exit(0);
+while (!input.done) {
+  const response = await input.choose(questions);
+
+  if (response[0]) await addUser();
+  if (response[1]) Deno.exit(0);
+}
