@@ -1,7 +1,10 @@
 {
   "tasks": {
     "start": "./start.sh",
-    "lint": "./lint.sh"
+    "lint": "./lint.sh",
+    "migrate:up": "deno run -A --unstable https://deno.land/x/nessie/cli.ts migrate",
+    "migrate:down": "deno run -A --unstable https://deno.land/x/nessie/cli.ts rollback",
+    "migrate:make": "deno run -A --unstable https://deno.land/x/nessie/cli.ts make:migration"
   },
   "githooks": {
     "pre-commit": "lint"
