@@ -1,14 +1,12 @@
-import InputLoop from "https://deno.land/x/input@2.0.3/index.ts";
 import getLastFMRequest from "../request/getLastFMRequest.ts";
 
-export default async (): Promise<Record<string, unknown>> => {
-  const input = new InputLoop();
-  const lastfmUsername = await input.question("Enter last.fm username:");
-
-  return getLastFMRequest(
+export default async (user: string): Promise<Record<string, unknown>> => {
+  const response = await getLastFMRequest(
     "user.getinfo",
     {
-      user: lastfmUsername,
+      user,
     },
   );
+
+  return response;
 };

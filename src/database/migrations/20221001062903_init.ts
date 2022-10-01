@@ -10,20 +10,22 @@ export default class extends AbstractMigration<ClientMySQL> {
   async up(): Promise<void> {
     const userTable = queryBuilder.schema.createTable("user", (table: any) => {
       table.increments("id").primary();
-      table.integer("user_id").unsigned().notNullable();
+      table.string("name");
       table.string("url");
       table.string("gender");
       table.string("country");
-      table.integer("registeredAt");
+      table.integer("registered_at");
     });
 
+    // Create user table
     await this.client.query(userTable.toString());
 
-    const userIdIndex = queryBuilder.schema.alterTable("user", (table: any) => {
-      table.index(["user_id"]);
+    const userUnique = queryBuilder.schema.alterTable("user", (table) => {
+      table.unique(["name"]);
     });
 
-    await this.client.query(userIdIndex.toString());
+    // Apply unique index on user.name
+    await this.client.query(userUnique.toString());
   }
 
   /** Runs on rollback */
