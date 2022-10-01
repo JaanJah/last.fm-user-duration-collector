@@ -14,6 +14,7 @@ export default class extends AbstractMigration<ClientMySQL> {
       table.string("url");
       table.string("gender");
       table.string("country");
+      table.integer("registeredAt");
     });
 
     await this.client.query(userTable.toString());
