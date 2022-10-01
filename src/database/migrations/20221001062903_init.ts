@@ -19,8 +19,8 @@ export default class extends AbstractMigration<ClientMySQL> {
     await this.client.query(userTable.toString());
 
     const userIdIndex = queryBuilder.schema.alterTable("user", (table: any) => {
-        table.index(["user_id"]);
-      });
+      table.index(["user_id"]);
+    });
 
     await this.client.query(userIdIndex.toString());
   }
