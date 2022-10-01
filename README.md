@@ -1,5 +1,7 @@
 # Last.fm User Duration Collector
 
+This project is written to run on [Deno](https://deno.land).
+
 ```bash
 # Copy and configure env variables
 cp .env.example .env
