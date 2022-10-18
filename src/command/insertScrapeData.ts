@@ -34,6 +34,16 @@ export default async (artistTracks: ArtistTrack[], userId: number) => {
       continue;
     }
 
+    if (track.length > 255) {
+      console.log("Cannot import track, too long title", trackInfo.track.title);
+      continue;
+    }
+
+    if (artist.length > 255) {
+      console.log("Cannot import artist, too long artist", artist);
+      continue;
+    }
+
     const trackInput: any = {
       duration: trackInfo.track.duration,
       title: track,
@@ -65,6 +75,12 @@ export default async (artistTracks: ArtistTrack[], userId: number) => {
       album.title_pretty = trackInfo.track.album.title;
       album.url = trackInfo.track.album.url;
       album.artist_id = trackInput.artist_id;
+
+      if (album.title.length > 255) {
+        // Example: %E6%AE%AF%E2%80%95%E2%80%95%E6%AD%BB%E3%81%B8%E8%80%BD%E3%82%8B%E6%83%B3%E3%81%84%E3%81%AF%E6%88%AE%E8%BE%B1%E3%81%99%E3%82%89%E5%96%B0%E3%82%89%E3%81%84%E3%80%81%E5%BD%BC%E6%96%B9%E3%81%AE%E7%94%9F%E3%82%92%E6%84%9B%E3%81%99%E3%82%8B%E7%82%BA%E3%81%AB%E5%91%BD%E3%82%92%E8%AE%83%E3%81%88%E3%82%8B%E2%80%95%E2%80%95%E3%80%82
+        console.log("Cannot import album, too long album", album.title);
+        continue;
+      }
 
       const albumExists = await getAlbumByTitle(album.title);
       if (!albumExists) {
