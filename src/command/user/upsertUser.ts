@@ -18,7 +18,12 @@ export default async (name: string, user: any) => {
   if (!userExists) {
     const insertQuery = queryBuilder("user").insert(input);
 
-    await executeQuery(insertQuery);
+    const { insertId: userId } = await executeQuery(insertQuery);
+    const insertQuery2 = queryBuilder("user_scraped").insert({
+      user_id: userId,
+      latest_scrobbled_at: null,
+    });
+    await executeQuery(insertQuery2);
     console.log(`Added last.fm user: ${name} to database`);
   } else {
     // Otherwise update user

@@ -30,6 +30,10 @@ export default async (artistTracks: ArtistTrack[], userId: number) => {
 
     const trackInfo: any = await getinfo(artist, track);
 
+    if (!trackInfo.track?.duration) {
+      continue;
+    }
+
     const trackInput: any = {
       duration: trackInfo.track.duration,
       title: track,
