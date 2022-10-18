@@ -65,9 +65,9 @@ export default async (artistTracks: ArtistTrack[], userId: number) => {
       const albumExists = await getAlbumByTitle(album.title);
       if (!albumExists) {
         const { insertId: albumId } = await insertAlbum(album);
-        trackInfo.album_id = albumId;
+        trackInput.album_id = albumId;
       } else {
-        trackInfo.album_id = albumExists.id;
+        trackInput.album_id = albumExists.id;
       }
     }
 
