@@ -4,7 +4,9 @@ import getUserByName from "../command/user/getUserByName.ts";
 import getUserScrapedByUserId from "../command/user_scraped/getUserScrapedByUserId.ts";
 import getinfo from "../request/user/getinfo.ts";
 import upsertUser from "../command/user/upsertUser.ts";
-//import scrapeTracks from "../request/scraper/scrapeTracks.ts";
+import scrapeTracks from "../request/scraper/scrapeTracks.ts";
+import insertScrapeData from "../command/insertScrapeData.ts";
+import updateLastScrobbledAt from "../command/user_scraped/updateLastScrobbledAt.ts";
 
 const day = 86400 * 1000;
 
@@ -43,13 +45,10 @@ export default async () => {
   console.log(`Starting scraping, since: ${from}`);
   while (now.getTime() > new Date(from).getTime()) {
     console.log(`[${from}/${to}] Start scrape`);
-    //const tracks = await scrapeTracks(from, to, name);
-    //console.log(`[${from}/${to}] Scraped: ${tracks.length} tracks`);
-    //await createTracks(tracks);
-    //await createArtist(tracks);
-    //await createAlbum(tracks);
-    //await createUserTracks(tracks);
-    //await updateUserLastScrapedAt(to);
+    const tracks = await scrapeTracks(from, to, name);
+    console.log(`[${from}/${to}] Scraped: ${tracks.length} tracks`);
+    await insertScrapeData(tracks, dbUser.id);
+    await updateLastScrobbledAt(dbUser.id, new Date(from));
     from = dateToString("yyyy-MM-dd", new Date(new Date(to).getTime() + day));
     to = dateToString("yyyy-MM-dd", new Date(new Date(from).getTime() + day));
   }

@@ -33,9 +33,8 @@ export default class extends AbstractMigration<ClientMySQL> {
       "artist",
       (table: any) => {
         table.increments("id").primary();
-        table.uuid("mbid");
-        table.integer("duration").notNullable();
         table.string("title").notNullable();
+        table.string("title_pretty").notNullable();
         table.string("url").notNullable();
       },
     );
@@ -46,8 +45,8 @@ export default class extends AbstractMigration<ClientMySQL> {
       "album",
       (table: any) => {
         table.increments("id").primary();
-        table.uuid("mbid");
         table.string("title").notNullable();
+        table.string("title_pretty").notNullable();
         table.integer("artist_id").unsigned().notNullable();
         table.string("url").notNullable();
       },
@@ -68,9 +67,9 @@ export default class extends AbstractMigration<ClientMySQL> {
       "track",
       (table: any) => {
         table.increments("id").primary();
-        table.uuid("mbid");
         table.integer("duration").notNullable();
         table.string("title").notNullable();
+        table.string("title_pretty").notNullable();
         table.string("url").notNullable();
         table.integer("album_id").unsigned();
         table.integer("artist_id").unsigned().notNullable();
@@ -102,7 +101,6 @@ export default class extends AbstractMigration<ClientMySQL> {
         table.increments("id").primary();
         table.integer("track_id").unsigned().notNullable();
         table.integer("user_id").unsigned().notNullable();
-        table.timestamp("scrobbled_at").notNullable();
       },
     );
 
